@@ -3,7 +3,8 @@ import { MainLayout } from '../layouts/MainLayout';
 import { ProtectedRoute } from './ProtectedRoute';
 import { LoginPage } from '../pages/LoginPage';
 import { DashboardPage } from '../pages/DashboardPage';
-
+import { AdminPage } from '../pages/AdminPage';
+import {ProductsPage} from '../pages/ProductsPage';
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
         children: [
           { path: '/', element: <DashboardPage /> },
           { path: '/profile', element: <DashboardPage /> },
-          // Any route here will automatically have the Navbar
+          { path: '/admin', element: <AdminPage /> },
+          { path: '/products', element: <ProductsPage /> },
         ],
       },
     ],

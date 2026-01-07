@@ -1,8 +1,9 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Blueprint
 from app import app, db
-from app.models import User
+from app.models import User, SuperCat, ProductLine, Category, Product
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
+from sqlalchemy import or_
 from datetime import datetime, timezone
 from app.services import RefreshCex
 
@@ -125,3 +126,83 @@ def cex_refresh():
 @login_required
 def admin_info():
     return jsonify({"message": "Admin panel access", "username": current_user.username})
+
+@app.route('/api/products', methods=['GET'])
+@login_required
+def get_products():
+    super_id = request.args.get('super_category_id', type=int)
+    line_id = request.args.get('product_line_id', type=int)
+    cat_id = request.args.get('category_id', type=int)
+
+    query = Product.query
+
+    # 1. Filter by Category (Direct Relationship)
+    if cat_id:
+        query = query.filter(Product.category_id == cat_id)
+
+    # 2. Filter by Product Line (Requires Join to Category)
+    if line_id:
+        # We check if Category is already joined; if not, join it
+        query = query.join(Category).filter(Category.product_line_id == line_id)
+
+    # 3. Filter by Super Category (Requires Join to Category AND ProductLine)
+    if super_id:
+        # If we didn't join Category in the previous step, we must join it now
+        if not line_id:
+            query = query.join(Category)
+        
+        query = query.join(ProductLine).filter(ProductLine.super_cat_id == super_id)
+
+    products = query.all()
+    
+    # Debugging
+    print(f"Filters -> Super: {super_id}, Line: {line_id}, Cat: {cat_id}")
+    print(f"SQL Generated: {str(query)}")
+    
+    return jsonify([p.to_dict() for p in products])
+
+@app.route('/api/navigation', methods=['GET'])
+@login_required
+def get_navigation():
+    supers = SuperCat.query.all()
+    tree = []
+    
+    for s in supers:
+        lines = []
+        for line in s.product_lines:
+            cats = [{'id': c.id, 'name': c.name} for c in line.categories]
+            lines.append({
+                'id': line.id,
+                'name': line.name,
+                'categories': cats
+            })
+        tree.append({
+            'id': s.id,
+            'name': s.name,
+            'product_lines': lines
+        })
+        
+    return jsonify(tree)
+
+@app.route('/api/products/search', methods=['GET'])
+@login_required
+def search_products():
+    query_text = request.args.get('q', '', type=str)
+    
+    if not query_text:
+        return jsonify([])
+
+    # 1. Split the query into individual words and remove empty strings
+    words = [word for word in query_text.split(' ') if word]
+
+    query = Product.query
+
+    # 2. Chain a filter for every word
+    for word in words:
+        # This creates an "AND" relationship: 
+        # Product must match Word1 AND Word2 AND Word3
+        query = query.filter(Product.name.ilike(f'%{word}%'))
+
+    search_results = query.limit(20).all()
+
+    return jsonify([p.to_dict() for p in search_results])

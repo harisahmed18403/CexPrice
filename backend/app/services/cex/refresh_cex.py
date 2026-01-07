@@ -125,7 +125,8 @@ class RefreshCex():
                             product = Product(
                                 name=boxDetails["boxName"],
                                 cash_price=boxDetails["cashPrice"],
-                                category_id=boxDetails["categoryId"]
+                                category_id=boxDetails["categoryId"],
+                                image_path=boxDetails["imageUrls"]["medium"]
                             )
                             db.session.add(product)
                             db.session.flush()
@@ -140,6 +141,7 @@ class RefreshCex():
                             product.name = boxDetails["boxName"]
                             product.cash_price = boxDetails["cashPrice"]
                             product.category_id = boxDetails["categoryId"]
+                            product.image_path=boxDetails["imageUrls"]["medium"]
 
                         db.session.commit()
 

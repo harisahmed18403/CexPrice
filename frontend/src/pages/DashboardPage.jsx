@@ -1,5 +1,6 @@
 import { useAuth } from "../features/auth";
 import { Container, Box, Typography, Button } from "@mui/material";
+import ProductsSearch from "../components/ProductsSearch";
 
 export const DashboardPage = () => {
   const { user, logout, isLoading } = useAuth();
@@ -18,6 +19,9 @@ export const DashboardPage = () => {
         {/* Now user.username is guaranteed to exist */}
         <Typography variant="h4">Welcome, {user.username}</Typography>
         <Button onClick={logout} variant="contained">Logout</Button>
+      </Box>
+      <Box>
+        <ProductsSearch></ProductsSearch>
       </Box>
     </Container>
   );
