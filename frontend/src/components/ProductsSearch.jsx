@@ -44,7 +44,7 @@ export default function ProductsSearch({onSelect}) {
   }, [query]);
 
   return (
-    <Box sx={{ position: 'relative', width: '100%', maxWidth: 400 }}>
+    <Box sx={{ position: 'relative', width: '100%' }}>
       <ClickAwayListener onClickAway={() => setOpen(false)}>
         <div>
           <TextField
@@ -94,7 +94,7 @@ export default function ProductsSearch({onSelect}) {
                       </ListItemAvatar>
                       <ListItemText 
                         primary={product.name} 
-                        secondary={`$${product.cash_price}`} 
+                        secondary={`${import.meta.env.VITE_CURRENCY}${product.cash_price}`} 
                       />
                     </ListItem>
                   ))

@@ -4,7 +4,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { LoginPage } from '../pages/LoginPage';
 import { DashboardPage } from '../pages/DashboardPage';
 import { AdminPage } from '../pages/AdminPage';
-import {ProductsPage} from '../pages/ProductsPage';
+import {BrowseProductsPage} from '../pages/products/BrowseProductsPage';
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
           { path: '/', element: <DashboardPage /> },
           { path: '/profile', element: <DashboardPage /> },
           { path: '/admin', element: <AdminPage /> },
-          { path: '/products', element: <ProductsPage /> },
+          { path: '/products', element: <BrowseProductsPage /> },
         ],
       },
     ],

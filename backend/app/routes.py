@@ -3,7 +3,7 @@ from app import app, db
 from app.models import User, SuperCat, ProductLine, Category, Product
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
-from sqlalchemy import or_
+from sqlalchemy import func
 from datetime import datetime, timezone
 from app.services import RefreshCex
 
@@ -192,17 +192,15 @@ def search_products():
     if not query_text:
         return jsonify([])
 
-    # 1. Split the query into individual words and remove empty strings
     words = [word for word in query_text.split(' ') if word]
-
     query = Product.query
 
-    # 2. Chain a filter for every word
     for word in words:
-        # This creates an "AND" relationship: 
-        # Product must match Word1 AND Word2 AND Word3
         query = query.filter(Product.name.ilike(f'%{word}%'))
 
-    search_results = query.limit(20).all()
+    # SORTING LOGIC:
+    # We order by the length of the name. 
+    # If I search "Apple", "Apple" (length 5) comes before "Apple iPhone 15 Case" (length 21).
+    search_results = query.order_by(func.length(Product.name).asc()).limit(20).all()
 
     return jsonify([p.to_dict() for p in search_results])

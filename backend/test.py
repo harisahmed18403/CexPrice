@@ -1,5 +1,11 @@
 import requests
 from urllib.parse import urlencode
+from app.services import RefreshCex
+
+r = RefreshCex()
+r.refreshProducts()
+
+exit()
 
 params_dict = {
     "attributesToRetrieve": ["boxBuyAllowed","boxName","boxSaleAllowed","boxWebBuyAllowed","boxWebSaleAllowed","cannotBuy","cashPrice","categoryFriendlyName","categoryName","collectionQuantity","ecomQuantity","exchangePrice","imageUrls","isNewBox","masterBoxId","masterBoxName","outOfEcomStock","superCatFriendlyName","superCatName","boxId","outOfStock","sellPrice","exchangePerc","cashBuyPrice","scId","discontinued","new","cashPriceCalculated","exchangePriceCalculated","rating","ecomQuantityOnHand","priceLastChanged","isImageTypeInternal","imageNames","Grade"],
@@ -37,8 +43,3 @@ payload = {
 response = requests.post(url, json=payload, headers=headers)
 data = response.json()
 
-print(data)
-
-for result in data["results"]:
-    for hit in result["hits"]:
-        print(hit["objectID"], hit["_highlightResult"]["boxName"]["value"])

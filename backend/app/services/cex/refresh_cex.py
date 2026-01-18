@@ -76,7 +76,7 @@ class RefreshCex():
                 "X-Algolia-Application-Id": app.config['CEX_ALGOLIA_APP_ID'],
             }
 
-            categories = Category.query.with_entities(Category.id).filter(Category.name == 'iPhone 11').all()
+            categories = Category.query.with_entities(Category.id).filter_by(product_line_id=106).all()
 
             for category in categories:
                 params_dict = {
@@ -106,8 +106,21 @@ class RefreshCex():
                         ]
                     }
 
-                    response = requests.post(self.websiteApiUrl, json=payload, headers=headers)
-                    data = response.json()
+                    try:
+                        response = requests.post(self.websiteApiUrl, json=payload, headers=headers, timeout=10)
+                        response.raise_for_status()
+                        data = response.json()
+
+                    except requests.exceptions.HTTPError as http_err:
+                        print(f"HTTP error occurred: {http_err}")
+                    except requests.exceptions.ConnectionError:
+                        print("Error: Could not connect to the server. Check your internet or the URL.")
+                    except requests.exceptions.Timeout:
+                        print("Error: The request timed out.")
+                    except ValueError:
+                        print("Error: The response was not valid JSON.")
+                    except requests.exceptions.RequestException as err:
+                        print(f"An unexpected error occurred: {err}")
 
                     if "results" not in data or not data["results"]:
                         break
