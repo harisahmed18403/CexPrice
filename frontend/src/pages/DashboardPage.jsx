@@ -75,20 +75,20 @@ export const DashboardPage = () => {
         <Grid item xs={12} md={6}>
           <Card sx={{ 
             height: '100%', 
-            bgcolor: 'black',
+            background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
             color: 'white',
-            borderRadius: 0,
-            border: '2px solid black'
+            borderRadius: 2,
+            boxShadow: '0 10px 15px -3px rgba(15, 23, 42, 0.3)'
           }}>
             <CardContent>
               <Stack direction="row" justifyContent="space-between" alignItems="center">
                 <Box>
-                  <Typography variant="overline" sx={{ opacity: 0.8, fontWeight: 800, letterSpacing: '0.1em' }}>REVENUE TOTAL</Typography>
+                  <Typography variant="overline" sx={{ opacity: 0.8, fontWeight: 800, letterSpacing: '0.1em' }}>TOTAL REVENUE</Typography>
                   <Typography variant="h3" sx={{ fontWeight: 900 }}>
                     {import.meta.env.VITE_CURRENCY}{stats?.total_sales?.toFixed(2) || '0.00'}
                   </Typography>
                 </Box>
-                <TrendingUpIcon sx={{ fontSize: 40, opacity: 0.5 }} />
+                <TrendingUpIcon sx={{ fontSize: 40, opacity: 0.4 }} />
               </Stack>
             </CardContent>
           </Card>
@@ -96,19 +96,21 @@ export const DashboardPage = () => {
         <Grid item xs={12} md={6}>
           <Card sx={{ 
             height: '100%', 
-            borderRadius: 0,
-            border: '2px solid black',
-            bgcolor: 'white'
+            borderRadius: 2,
+            border: '1px solid',
+            borderColor: 'divider',
+            bgcolor: 'white',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
           }}>
             <CardContent>
               <Stack direction="row" justifyContent="space-between" alignItems="center">
                 <Box>
-                  <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 800, letterSpacing: '0.1em' }}>TRANSACTION COUNT</Typography>
-                  <Typography variant="h3" color="text.primary" sx={{ fontWeight: 900 }}>
+                  <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 800, letterSpacing: '0.1em' }}>TODAY'S OPERATIONS</Typography>
+                  <Typography variant="h3" color="info.main" sx={{ fontWeight: 900 }}>
                     {stats?.sale_count || 0}
                   </Typography>
                 </Box>
-                <ReceiptIcon sx={{ fontSize: 40, color: 'black', opacity: 1 }} />
+                <ReceiptIcon sx={{ fontSize: 40, color: 'info.main', opacity: 0.3 }} />
               </Stack>
             </CardContent>
           </Card>
@@ -116,10 +118,10 @@ export const DashboardPage = () => {
       </Grid>
 
       <Box sx={{ maxWidth: 600, mx: 'auto' }}>
-        <Paper sx={{ p: 4, textAlign: 'center', borderRadius: 0, border: '2px solid black' }}>
-          <Typography variant="h6" gutterBottom sx={{ fontWeight: 900, textTransform: 'uppercase' }}>Terminal Search</Typography>
-          <Typography variant="body2" color="text.secondary" mb={3} sx={{ fontWeight: 600 }}>
-            ENTER PRODUCT SKU OR NAME FOR NEW TRANSACTION
+        <Paper sx={{ p: 4, textAlign: 'center', borderRadius: 2 }}>
+          <Typography variant="h6" gutterBottom sx={{ fontWeight: 900, color: 'text.primary' }}>TERMINAL SEARCH</Typography>
+          <Typography variant="body2" color="text.secondary" mb={3} sx={{ fontWeight: 500 }}>
+            Enter product details to initiate a new transaction
           </Typography>
           <ProductsSearch onBuy={handleBuy} />
         </Paper>

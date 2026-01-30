@@ -65,7 +65,7 @@ export default function LoginForm({ onLogin }) {
                 <PersonIcon color="action" fontSize="small" />
               </InputAdornment>
             ),
-            sx: { borderRadius: 0 }
+            sx: { borderRadius: 1.5 }
           }}
         />
         
@@ -95,7 +95,7 @@ export default function LoginForm({ onLogin }) {
                 </IconButton>
               </InputAdornment>
             ),
-            sx: { borderRadius: 0 }
+            sx: { borderRadius: 1.5 }
           }}
         />
 
@@ -107,17 +107,16 @@ export default function LoginForm({ onLogin }) {
           disabled={loading}
           sx={{ 
             py: 1.5, 
-            borderRadius: 0, 
-            fontWeight: 900,
+            borderRadius: 1.5, 
+            fontWeight: 800,
             fontSize: '1rem',
-            bgcolor: 'black',
+            bgcolor: 'primary.main',
             color: 'white',
-            border: '2px solid black',
-            boxShadow: 'none',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+            transition: 'all 0.2s',
             '&:hover': {
-              bgcolor: 'white',
-              color: 'black',
-              boxShadow: 'none'
+              bgcolor: 'primary.dark',
+              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
             }
           }}
         >

@@ -14,7 +14,7 @@ export const MainLayout = () => {
 
       <Container 
         component="main" 
-        maxWidth="lg" 
+        maxWidth="xl" 
         sx={{ 
           flexGrow: 1, 
           py: { xs: 4, md: 6 }, 

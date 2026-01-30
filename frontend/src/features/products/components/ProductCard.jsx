@@ -21,10 +21,14 @@ export default function ProductCard({ product }) {
       height: '100%', 
       display: 'flex', 
       flexDirection: 'column', 
-      borderRadius: 0, 
-      boxShadow: 'none', 
-      border: '1px solid #e0e0e0',
-      '&:hover': { border: '1px solid black' } 
+      borderRadius: 2, 
+      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+      border: '1px solid #e2e8f0',
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      '&:hover': { 
+        transform: 'translateY(-4px)',
+        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+      } 
     }}>
       <Box sx={{ position: 'relative' }}>
           <CardMedia
@@ -58,8 +62,16 @@ export default function ProductCard({ product }) {
         </Box>
       </CardContent>
       <CardActions sx={{ p: 1.5, pt: 0 }}>
-        <Button size="small" variant="contained" fullWidth>
-          View Details
+        <Button 
+          fullWidth 
+          variant="contained" 
+          color="success"
+          sx={{ 
+            fontWeight: 800,
+            borderRadius: 1.5 
+          }}
+        >
+          Buy Now
         </Button>
       </CardActions>
     </Card>

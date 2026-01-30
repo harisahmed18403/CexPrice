@@ -170,7 +170,7 @@ export const CreateSalePage = () => {
                 {/* Left Side: Inputs */}
                 <Grid size={{ xs: 12, lg: 4 }}>
                     <Stack spacing={3}>
-                        <Card variant="outlined" sx={{ borderRadius: 0, border: '2px solid black' }}>
+                        <Card variant="outlined" sx={{ borderRadius: 2 }}>
                             <CardContent sx={{ p: 3 }}>
                                 <Box 
                                     sx={{ display: 'flex', justifyContent: 'space-between', cursor: 'pointer', alignItems: 'center' }}
@@ -198,7 +198,7 @@ export const CreateSalePage = () => {
                             </CardContent>
                         </Card>
 
-                        <Paper variant="outlined" sx={{ p: 3, borderRadius: 0, border: '2px solid black' }}>
+                        <Paper variant="outlined" sx={{ p: 3, borderRadius: 2 }}>
                             <Typography variant="h6" gutterBottom sx={{ fontWeight: 700 }}>Add Products</Typography>
                             <Box sx={{ mb: 3 }}>
                                 <ProductsSearch onSelect={handleAddItem} />
@@ -225,9 +225,9 @@ export const CreateSalePage = () => {
                                     variant="outlined" 
                                     fullWidth 
                                     onClick={handleAddCustomItem}
-                                    sx={{ borderRadius: 0, border: '2px solid black', fontWeight: 900 }}
+                                    sx={{ borderRadius: 1.5, fontWeight: 700 }}
                                 >
-                                    ADD CUSTOM ENTRY
+                                    Add Custom Entry
                                 </Button>
                             </Stack>
                         </Paper>
@@ -239,12 +239,11 @@ export const CreateSalePage = () => {
                     <Paper 
                         variant="outlined" 
                         sx={{ 
-                            borderRadius: 0, 
+                            borderRadius: 2, 
                             height: '100%', 
                             display: 'flex', 
                             flexDirection: 'column',
-                            overflow: 'hidden',
-                            border: '2px solid black'
+                            overflow: 'hidden'
                         }}
                     >
                         <TableContainer sx={{ flexGrow: 1, maxHeight: 500 }}>
@@ -309,9 +308,9 @@ export const CreateSalePage = () => {
                             </Table>
                         </TableContainer>
 
-                        <Box sx={{ p: 4, bgcolor: 'black', color: 'white', borderTop: '4px solid black' }}>
+                        <Box sx={{ p: 4, bgcolor: 'primary.dark', color: 'white', borderTop: '1px solid', borderColor: 'grey.800' }}>
                             <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
-                                <Typography variant="h6" sx={{ fontWeight: 800, textTransform: 'uppercase' }}>Grand Total</Typography>
+                                <Typography variant="h6" sx={{ fontWeight: 800, textTransform: 'uppercase', opacity: 0.8 }}>Grand Total</Typography>
                                 <Typography variant="h3" sx={{ fontWeight: 900 }}>
                                     {import.meta.env.VITE_CURRENCY}{calculateTotal()}
                                 </Typography>
@@ -323,7 +322,16 @@ export const CreateSalePage = () => {
                                 fullWidth 
                                 disabled={items.length === 0 || !transactionType || createSaleMutation.isPending}
                                 onClick={handleSubmit}
-                                sx={{ py: 2, borderRadius: 0, fontWeight: 900, fontSize: '1.2rem', bgcolor: 'white', color: 'black', border: '2px solid white', '&:hover': { bgcolor: 'grey.300', color: 'black' } }}
+                                sx={{ 
+                                    py: 2, 
+                                    borderRadius: 1.5, 
+                                    fontWeight: 900, 
+                                    fontSize: '1.2rem', 
+                                    bgcolor: 'success.main', 
+                                    color: 'white',
+                                    boxShadow: '0 10px 15px -3px rgba(16, 185, 129, 0.3)',
+                                    '&:hover': { bgcolor: 'success.dark' } 
+                                }}
                             >
                                 {createSaleMutation.isPending ? 'Processing...' : 'Complete Transaction'}
                             </Button>

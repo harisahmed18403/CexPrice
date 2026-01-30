@@ -196,8 +196,8 @@ export const AdminPage = () => {
                 {/* Left Panel: Sync Controls */}
                 <Grid size={{ xs: 12, lg: 4 }}>
                     <Stack spacing={3}>
-                        <Paper sx={{ p: 3, borderRadius: 0, border: '2px solid black' }}>
-                            <Typography variant="h6" sx={{ fontWeight: 900, mb: 3, textTransform: 'uppercase' }}>System Sync</Typography>
+                        <Paper sx={{ p: 4, borderRadius: 2 }}>
+                            <Typography variant="h6" sx={{ fontWeight: 900, mb: 3, color: 'text.primary' }}>SYSTEM CONTROL</Typography>
                             
                             <Stepper activeStep={activeStep} orientation="vertical">
                                 <Step expanded>
@@ -210,7 +210,7 @@ export const AdminPage = () => {
                                                 onClick={handleSmartPreset}
                                                 fullWidth
                                                 startIcon={<CheckCircleIcon />}
-                                                sx={{ mb: 1.5, borderRadius: 0, border: '1px solid black' }}
+                                                sx={{ mb: 1.5, borderRadius: 1.5, color: 'info.main', borderColor: 'info.light' }}
                                             >
                                                 Preset: Phones & Apple
                                             </Button>
@@ -231,7 +231,12 @@ export const AdminPage = () => {
                                                 variant="contained"
                                                 fullWidth
                                                 size="large"
-                                                sx={{ mt: 1, borderRadius: 0, bgcolor: 'black' }}
+                                                color="info"
+                                                sx={{ 
+                                                    mt: 1, 
+                                                    borderRadius: 1.5,
+                                                    boxShadow: '0 4px 6px -1px rgba(59, 130, 246, 0.2)'
+                                                }}
                                             >
                                                 Start Refresh
                                             </LoadingButton>
@@ -348,11 +353,10 @@ export const AdminPage = () => {
                                                                             onDelete={() => handleCategoryVisibilityToggle(cat.id)}
                                                                             deleteIcon={cat.is_active ? <VisibilityIcon size="small" /> : <VisibilityOffIcon size="small" />}
                                                                             sx={{ 
-                                                                                borderRadius: 0, 
-                                                                                fontWeight: 800,
+                                                                                borderRadius: 1, 
+                                                                                fontWeight: 700,
                                                                                 textDecoration: cat.is_active ? 'none' : 'line-through',
-                                                                                opacity: cat.is_active ? 1 : 0.6,
-                                                                                border: '1px solid black'
+                                                                                opacity: cat.is_active ? 1 : 0.6
                                                                             }}
                                                                         />
                                                                     </Grid>
@@ -368,11 +372,11 @@ export const AdminPage = () => {
                             </Box>
                         </Paper>
 
-                        <Paper sx={{ bgcolor: 'black', color: 'common.white', borderRadius: 0, border: '2px solid black', overflow: 'hidden' }}>
-                            <Box sx={{ p: 1, borderBottom: '1px solid', borderColor: 'grey.800', display: 'flex', gap: 1 }}>
-                                <Box sx={{ width: 8, height: 8, bgcolor: 'grey.700' }} />
-                                <Box sx={{ width: 8, height: 8, bgcolor: 'grey.500' }} />
-                                <Box sx={{ width: 8, height: 8, bgcolor: 'grey.300' }} />
+                        <Paper sx={{ bgcolor: 'primary.dark', color: 'common.white', borderRadius: 2, overflow: 'hidden', boxShadow: 4 }}>
+                            <Box sx={{ p: 1.5, borderBottom: '1px solid', borderColor: 'grey.800', display: 'flex', gap: 1 }}>
+                                <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: 'error.main' }} />
+                                <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: 'warning.main' }} />
+                                <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: 'success.main' }} />
                             </Box>
                             <Box sx={{ height: 250, overflowY: 'auto', p: 2, fontFamily: 'monospace', fontSize: '0.85rem' }}>
                                 {status?.logs?.length > 0 ? (
