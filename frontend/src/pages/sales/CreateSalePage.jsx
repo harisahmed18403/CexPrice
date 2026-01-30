@@ -168,9 +168,9 @@ export const CreateSalePage = () => {
 
             <Grid container spacing={4}>
                 {/* Left Side: Inputs */}
-                <Grid item xs={12} lg={4}>
+                <Grid size={{ xs: 12, lg: 4 }}>
                     <Stack spacing={3}>
-                        <Card variant="outlined" sx={{ borderRadius: 3 }}>
+                        <Card variant="outlined" sx={{ borderRadius: 0, border: '2px solid black' }}>
                             <CardContent sx={{ p: 3 }}>
                                 <Box 
                                     sx={{ display: 'flex', justifyContent: 'space-between', cursor: 'pointer', alignItems: 'center' }}
@@ -198,7 +198,7 @@ export const CreateSalePage = () => {
                             </CardContent>
                         </Card>
 
-                        <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
+                        <Paper variant="outlined" sx={{ p: 3, borderRadius: 0, border: '2px solid black' }}>
                             <Typography variant="h6" gutterBottom sx={{ fontWeight: 700 }}>Add Products</Typography>
                             <Box sx={{ mb: 3 }}>
                                 <ProductsSearch onSelect={handleAddItem} />
@@ -225,9 +225,9 @@ export const CreateSalePage = () => {
                                     variant="outlined" 
                                     fullWidth 
                                     onClick={handleAddCustomItem}
-                                    sx={{ borderRadius: 2 }}
+                                    sx={{ borderRadius: 0, border: '2px solid black', fontWeight: 900 }}
                                 >
-                                    Add Custom Item
+                                    ADD CUSTOM ENTRY
                                 </Button>
                             </Stack>
                         </Paper>
@@ -235,15 +235,16 @@ export const CreateSalePage = () => {
                 </Grid>
 
                 {/* Right Side: Cart */}
-                <Grid item xs={12} lg={8}>
+                <Grid size={{ xs: 12, lg: 8 }}>
                     <Paper 
                         variant="outlined" 
                         sx={{ 
-                            borderRadius: 3, 
+                            borderRadius: 0, 
                             height: '100%', 
                             display: 'flex', 
                             flexDirection: 'column',
-                            overflow: 'hidden'
+                            overflow: 'hidden',
+                            border: '2px solid black'
                         }}
                     >
                         <TableContainer sx={{ flexGrow: 1, maxHeight: 500 }}>
@@ -308,10 +309,10 @@ export const CreateSalePage = () => {
                             </Table>
                         </TableContainer>
 
-                        <Box sx={{ p: 4, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'divider' }}>
+                        <Box sx={{ p: 4, bgcolor: 'black', color: 'white', borderTop: '4px solid black' }}>
                             <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
-                                <Typography variant="h6" sx={{ fontWeight: 700 }}>Grand Total</Typography>
-                                <Typography variant="h3" color="primary" sx={{ fontWeight: 800 }}>
+                                <Typography variant="h6" sx={{ fontWeight: 800, textTransform: 'uppercase' }}>Grand Total</Typography>
+                                <Typography variant="h3" sx={{ fontWeight: 900 }}>
                                     {import.meta.env.VITE_CURRENCY}{calculateTotal()}
                                 </Typography>
                             </Stack>
@@ -322,7 +323,7 @@ export const CreateSalePage = () => {
                                 fullWidth 
                                 disabled={items.length === 0 || !transactionType || createSaleMutation.isPending}
                                 onClick={handleSubmit}
-                                sx={{ py: 2, borderRadius: 3, fontWeight: 700, fontSize: '1.1rem' }}
+                                sx={{ py: 2, borderRadius: 0, fontWeight: 900, fontSize: '1.2rem', bgcolor: 'white', color: 'black', border: '2px solid white', '&:hover': { bgcolor: 'grey.300', color: 'black' } }}
                             >
                                 {createSaleMutation.isPending ? 'Processing...' : 'Complete Transaction'}
                             </Button>

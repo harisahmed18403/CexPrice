@@ -65,7 +65,7 @@ export default function LoginForm({ onLogin }) {
                 <PersonIcon color="action" fontSize="small" />
               </InputAdornment>
             ),
-            sx: { borderRadius: 2 }
+            sx: { borderRadius: 0 }
           }}
         />
         
@@ -95,7 +95,7 @@ export default function LoginForm({ onLogin }) {
                 </IconButton>
               </InputAdornment>
             ),
-            sx: { borderRadius: 2 }
+            sx: { borderRadius: 0 }
           }}
         />
 
@@ -107,10 +107,18 @@ export default function LoginForm({ onLogin }) {
           disabled={loading}
           sx={{ 
             py: 1.5, 
-            borderRadius: 3, 
-            fontWeight: 800,
+            borderRadius: 0, 
+            fontWeight: 900,
             fontSize: '1rem',
-            boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.2)'
+            bgcolor: 'black',
+            color: 'white',
+            border: '2px solid black',
+            boxShadow: 'none',
+            '&:hover': {
+              bgcolor: 'white',
+              color: 'black',
+              boxShadow: 'none'
+            }
           }}
         >
           {loading ? <CircularProgress size={24} /> : "Sign In"}

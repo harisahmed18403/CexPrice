@@ -194,10 +194,10 @@ export const AdminPage = () => {
             
             <Grid container spacing={4}>
                 {/* Left Panel: Sync Controls */}
-                <Grid item xs={12} lg={4}>
+                <Grid size={{ xs: 12, lg: 4 }}>
                     <Stack spacing={3}>
-                        <Paper sx={{ p: 3, borderRadius: 3 }}>
-                            <Typography variant="h6" sx={{ fontWeight: 700, mb: 3 }}>System Sync</Typography>
+                        <Paper sx={{ p: 3, borderRadius: 0, border: '2px solid black' }}>
+                            <Typography variant="h6" sx={{ fontWeight: 900, mb: 3, textTransform: 'uppercase' }}>System Sync</Typography>
                             
                             <Stepper activeStep={activeStep} orientation="vertical">
                                 <Step expanded>
@@ -210,7 +210,7 @@ export const AdminPage = () => {
                                                 onClick={handleSmartPreset}
                                                 fullWidth
                                                 startIcon={<CheckCircleIcon />}
-                                                sx={{ mb: 1.5, borderRadius: 2 }}
+                                                sx={{ mb: 1.5, borderRadius: 0, border: '1px solid black' }}
                                             >
                                                 Preset: Phones & Apple
                                             </Button>
@@ -224,17 +224,17 @@ export const AdminPage = () => {
                                 <Step expanded>
                                     <StepLabel sx={{ '& .MuiStepLabel-label': { fontWeight: 700 } }}>Trigger</StepLabel>
                                     <StepContent>
-                                        <LoadingButton
-                                            onClick={handleRefresh}
-                                            loading={isLoading}
-                                            startIcon={<RefreshIcon />}
-                                            variant="contained"
-                                            fullWidth
-                                            size="large"
-                                            sx={{ mt: 1, borderRadius: 3 }}
-                                        >
-                                            Start Refresh
-                                        </LoadingButton>
+                                            <LoadingButton
+                                                onClick={handleRefresh}
+                                                loading={isLoading}
+                                                startIcon={<RefreshIcon />}
+                                                variant="contained"
+                                                fullWidth
+                                                size="large"
+                                                sx={{ mt: 1, borderRadius: 0, bgcolor: 'black' }}
+                                            >
+                                                Start Refresh
+                                            </LoadingButton>
                                     </StepContent>
                                 </Step>
                             </Stepper>
@@ -294,7 +294,7 @@ export const AdminPage = () => {
                 </Grid>
 
                 {/* Right Panel: Selection Tree & Logs */}
-                <Grid item xs={12} lg={8}>
+                <Grid size={{ xs: 12, lg: 8 }}>
                     <Stack spacing={3}>
                         <Paper sx={{ borderRadius: 3, overflow: 'hidden' }}>
                             <Box sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -339,7 +339,7 @@ export const AdminPage = () => {
                                                             
                                                             <Grid container spacing={1} sx={{ pl: 4 }}>
                                                                 {line.categories.map(cat => (
-                                                                    <Grid item key={cat.id}>
+                                                                    <Grid key={cat.id}>
                                                                         <Chip 
                                                                             label={cat.name}
                                                                             variant={selectedCategories.includes(cat.id) ? "filled" : "outlined"}
@@ -348,10 +348,11 @@ export const AdminPage = () => {
                                                                             onDelete={() => handleCategoryVisibilityToggle(cat.id)}
                                                                             deleteIcon={cat.is_active ? <VisibilityIcon size="small" /> : <VisibilityOffIcon size="small" />}
                                                                             sx={{ 
-                                                                                borderRadius: 2, 
-                                                                                fontWeight: 600,
+                                                                                borderRadius: 0, 
+                                                                                fontWeight: 800,
                                                                                 textDecoration: cat.is_active ? 'none' : 'line-through',
-                                                                                opacity: cat.is_active ? 1 : 0.6
+                                                                                opacity: cat.is_active ? 1 : 0.6,
+                                                                                border: '1px solid black'
                                                                             }}
                                                                         />
                                                                     </Grid>
@@ -367,11 +368,11 @@ export const AdminPage = () => {
                             </Box>
                         </Paper>
 
-                        <Paper sx={{ bgcolor: 'grey.900', color: 'common.white', borderRadius: 3, overflow: 'hidden' }}>
-                            <Box sx={{ p: 1.5, borderBottom: '1px solid', borderColor: 'grey.800', display: 'flex', gap: 1 }}>
-                                <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#ff5f56' }} />
-                                <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#ffbd2e' }} />
-                                <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#27c93f' }} />
+                        <Paper sx={{ bgcolor: 'black', color: 'common.white', borderRadius: 0, border: '2px solid black', overflow: 'hidden' }}>
+                            <Box sx={{ p: 1, borderBottom: '1px solid', borderColor: 'grey.800', display: 'flex', gap: 1 }}>
+                                <Box sx={{ width: 8, height: 8, bgcolor: 'grey.700' }} />
+                                <Box sx={{ width: 8, height: 8, bgcolor: 'grey.500' }} />
+                                <Box sx={{ width: 8, height: 8, bgcolor: 'grey.300' }} />
                             </Box>
                             <Box sx={{ height: 250, overflowY: 'auto', p: 2, fontFamily: 'monospace', fontSize: '0.85rem' }}>
                                 {status?.logs?.length > 0 ? (

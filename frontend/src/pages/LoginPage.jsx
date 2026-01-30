@@ -26,15 +26,15 @@ export const LoginPage = () => {
         <Fade in timeout={800}>
           <Box>
             <Stack spacing={3} alignItems="center" sx={{ mb: 4 }}>
-              <Paper sx={{ 
+              <Box sx={{ 
                 p: 2, 
-                borderRadius: 3, 
-                bgcolor: 'primary.main', 
+                borderRadius: 0, 
+                bgcolor: 'black', 
                 color: 'white',
-                boxShadow: '0 8px 16px -4px rgba(99, 102, 241, 0.4)'
+                border: '4px solid black'
               }}>
                 <SmartphoneIcon sx={{ fontSize: 40 }} />
-              </Paper>
+              </Box>
               <Box textAlign="center">
                 <Typography variant="h4" sx={{ fontWeight: 900, letterSpacing: -1, mb: 0.5 }}>
                   {import.meta.env.VITE_APP_NAME || 'Phoneworks'}
@@ -47,16 +47,15 @@ export const LoginPage = () => {
 
             <Paper elevation={0} sx={{ 
               p: { xs: 3, sm: 4 }, 
-              borderRadius: 4, 
-              border: '1px solid',
-              borderColor: 'divider',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05)'
+              borderRadius: 0, 
+              border: '2px solid black',
+              boxShadow: 'none'
             }}>
-              <Typography variant="h5" sx={{ fontWeight: 800, mb: 1, textAlign: 'center' }}>
-                Welcome Back
+              <Typography variant="h5" sx={{ fontWeight: 900, mb: 1, textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                System Access
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 3, textAlign: 'center', fontWeight: 500 }}>
-                Please sign in to your account
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 3, textAlign: 'center', fontWeight: 700 }}>
+                CRITICAL INVENTORY CONTROL
               </Typography>
               
               <LoginForm onLogin={refreshUser} />

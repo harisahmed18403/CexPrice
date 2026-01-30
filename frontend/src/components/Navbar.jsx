@@ -28,7 +28,7 @@ export default function Navbar() {
         <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 0 } }}>
           <Stack direction="row" spacing={1} alignItems="center" component={RouterLink} to="/" sx={{ textDecoration: 'none', color: 'primary.main' }}>
             <SmartphoneIcon />
-            <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: -0.5 }}>
+            <Typography variant="h6" sx={{ fontWeight: 900, letterSpacing: '-0.05em', textTransform: 'uppercase' }}>
               {import.meta.env.VITE_APP_NAME || 'Phoneworks'}
             </Typography>
           </Stack>
@@ -39,29 +39,20 @@ export default function Navbar() {
                 key={item.path}
                 component={RouterLink}
                 to={item.path}
-                sx={{
-                  color: location.pathname === item.path ? 'primary.main' : 'text.secondary',
-                  fontWeight: 600,
-                  px: 2,
-                  py: 1,
-                  borderRadius: 2,
-                  bgcolor: location.pathname === item.path ? 'primary.light' : 'transparent',
-                  opacity: location.pathname === item.path ? 1 : 1, // Reset opacity logic
-                  position: 'relative',
-                  '&:hover': {
-                    bgcolor: 'action.hover',
-                  },
-                  '&::after': location.pathname === item.path ? {
-                    content: '""',
-                    position: 'absolute',
-                    bottom: 0,
-                    left: '20%',
-                    right: '20%',
-                    height: 3,
-                    bgcolor: 'primary.main',
-                    borderRadius: '3px 3px 0 0'
-                  } : {}
-                }}
+                  sx={{
+                    color: location.pathname === item.path ? 'common.black' : 'text.secondary',
+                    fontWeight: 700,
+                    px: 2,
+                    py: 1,
+                    borderRadius: 0,
+                    bgcolor: 'transparent',
+                    position: 'relative',
+                    borderBottom: location.pathname === item.path ? '3px solid black' : '3px solid transparent',
+                    '&:hover': {
+                      bgcolor: 'action.hover',
+                      borderRadius: 0,
+                    },
+                  }}
               >
                 {item.label}
               </Button>
@@ -73,9 +64,16 @@ export default function Navbar() {
             component={RouterLink} 
             to="/sales/new"
             sx={{ 
-              borderRadius: 3,
+              borderRadius: 0,
               px: 3,
-              boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.2)'
+              fontWeight: 800,
+              border: '2px solid black',
+              boxShadow: 'none',
+              '&:hover': {
+                bgcolor: 'white',
+                color: 'black',
+                boxShadow: 'none'
+              }
             }}
           >
             New Sale

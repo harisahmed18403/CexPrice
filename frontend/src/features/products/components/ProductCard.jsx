@@ -6,7 +6,8 @@ import {
   CardActions, 
   Typography, 
   Button,
-  Box
+  Box,
+  Chip
 } from '@mui/material';
 
 export default function ProductCard({ product }) {
@@ -16,7 +17,15 @@ export default function ProductCard({ product }) {
     : 0;
 
   return (
-    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: 2, boxShadow: 3, transition: '0.3s', '&:hover': { transform: 'translateY(-4px)', boxShadow: 6 } }}>
+    <Card sx={{ 
+      height: '100%', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      borderRadius: 0, 
+      boxShadow: 'none', 
+      border: '1px solid #e0e0e0',
+      '&:hover': { border: '1px solid black' } 
+    }}>
       <Box sx={{ position: 'relative' }}>
           <CardMedia
             component="img"

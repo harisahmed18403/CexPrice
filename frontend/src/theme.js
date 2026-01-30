@@ -4,67 +4,136 @@ export const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#6366f1', // Indigo 500
-      dark: '#4f46e5', // Indigo 600
-      light: '#818cf8', // Indigo 400
+      main: '#000000', // Solid Black
+      dark: '#1a1a1a', 
+      light: '#333333',
       contrastText: '#ffffff',
     },
     secondary: {
-      main: '#f43f5e', // Rose 500
-      dark: '#e11d48', // Rose 600
-      light: '#fb7185', // Rose 400
+      main: '#666666', // Deep Gray
+      dark: '#4d4d4d',
+      light: '#999999',
     },
     background: {
-      default: '#f8fafc', // Slate 50
+      default: '#fcfcfc', // Near White
       paper: '#ffffff',
     },
     text: {
-      primary: '#1e293b', // Slate 800
-      secondary: '#64748b', // Slate 500
+      primary: '#000000', // Black
+      secondary: '#424242', // Graphite
     },
+    divider: '#e0e0e0',
   },
   typography: {
-    fontFamily: '"Inter", "Outfit", "Roboto", "Helvetica", "Arial", sans-serif',
-    h1: { fontWeight: 700 },
-    h2: { fontWeight: 700 },
-    h3: { fontWeight: 700 },
-    h4: { fontWeight: 600 },
-    h5: { fontWeight: 600 },
-    h6: { fontWeight: 600 },
-    button: { textTransform: 'none', fontWeight: 600 },
+    fontFamily: '"Inter", "IBM Plex Sans", "Roboto", "Helvetica", "Arial", sans-serif',
+    h1: { fontWeight: 900, letterSpacing: '-0.02em' },
+    h2: { fontWeight: 800, letterSpacing: '-0.01em' },
+    h3: { fontWeight: 800, letterSpacing: '-0.01em' },
+    h4: { fontWeight: 700 },
+    h5: { fontWeight: 700 },
+    h6: { fontWeight: 700 },
+    button: { textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.05em' },
   },
   shape: {
-    borderRadius: 12,
+    borderRadius: 0, // Sharp edges
   },
   shadows: [
     'none',
-    '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-    '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
-    '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
-    '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)',
-    '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-    // ... rest default
-    ...Array(19).fill('none')
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
   ],
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: 0,
           boxShadow: 'none',
+          border: '1px solid black',
           '&:hover': {
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+            boxShadow: 'none',
+            backgroundColor: '#000000',
+            color: '#ffffff',
           },
         },
+        contained: {
+          border: 'none',
+        },
+        outlined: {
+          border: '2px solid black',
+          '&:hover': {
+            border: '2px solid black',
+          }
+        }
       },
     },
     MuiPaper: {
       styleOverrides: {
         root: {
-          boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
-          border: '1px solid #e2e8f0',
+          boxShadow: 'none',
+          border: '1px solid #e0e0e0',
+          borderRadius: 0,
         },
       },
     },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          border: '1px solid #e0e0e0',
+          boxShadow: 'none',
+        }
+      }
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          fontWeight: 700,
+        }
+      }
+    },
+    MuiTextField: {
+      defaultProps: {
+        variant: 'outlined',
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+        }
+      }
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          fontSize: '0.75rem',
+          fontWeight: 800,
+          letterSpacing: '0.05em',
+        }
+      }
+    }
   },
 });

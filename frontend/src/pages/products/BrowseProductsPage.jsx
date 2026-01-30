@@ -57,15 +57,15 @@ export const BrowseProductsPage = () => {
 
       <Box sx={{ mb: 4, position: 'sticky', top: 70, zIndex: 10, bgcolor: 'background.default', pt: 1 }}>
         <Tabs 
-          value={filters.product_line_id || false} 
+          value={allProductLines.some(l => l.id === filters.product_line_id) ? filters.product_line_id : (filters.product_line_id === null ? null : false)} 
           onChange={(e, newVal) => setFilters(prev => ({ ...prev, product_line_id: newVal, category_id: null, page: 1 }))}
           variant="scrollable"
           scrollButtons="auto"
           sx={{ 
-            borderBottom: 1, 
-            borderColor: 'divider',
+            borderBottom: 2, 
+            borderColor: 'common.black',
             mb: 2,
-            '& .MuiTabs-indicator': { height: 3, borderRadius: '3px 3px 0 0' }
+            '& .MuiTabs-indicator': { height: 4, borderRadius: 0, bgcolor: 'common.black' }
           }}
         >
           <Tab label="All Categories" value={null} sx={{ fontWeight: 700 }} />
@@ -74,7 +74,7 @@ export const BrowseProductsPage = () => {
           ))}
         </Tabs>
 
-        <Paper sx={{ p: 2, borderRadius: 3, boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
+        <Paper sx={{ p: 2, borderRadius: 0, border: '2px solid black', boxShadow: 'none' }}>
           <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} alignItems="center">
             <TextField 
               fullWidth 
@@ -89,7 +89,7 @@ export const BrowseProductsPage = () => {
                     <IconButton size="small" onClick={() => setSearchTerm('')}><Clear /></IconButton>
                   </InputAdornment>
                 ),
-                sx: { borderRadius: 2 }
+                sx: { borderRadius: 0 }
               }}
             />
             
@@ -100,7 +100,7 @@ export const BrowseProductsPage = () => {
                   value={`${filters.sort_by}-${filters.order}`}
                   label="Sort By"
                   onChange={handleSortChange}
-                  sx={{ borderRadius: 2 }}
+                   sx={{ borderRadius: 0 }}
                 >
                   <MenuItem value="name-asc">Name (A-Z)</MenuItem>
                   <MenuItem value="name-desc">Name (Z-A)</MenuItem>
@@ -129,7 +129,7 @@ export const BrowseProductsPage = () => {
                   variant={filters.category_id === cat.id ? "filled" : "outlined"}
                   color={filters.category_id === cat.id ? "primary" : "default"}
                   onClick={() => setFilters(prev => ({ ...prev, category_id: cat.id, page: 1 }))}
-                  sx={{ borderRadius: 1.5, fontWeight: 600 }}
+                  sx={{ borderRadius: 0, fontWeight: 800, border: '1px solid black' }}
                 />
               ))}
             </Box>
@@ -151,7 +151,7 @@ export const BrowseProductsPage = () => {
           <Box>
             <Grid container spacing={3}>
               {products.map((product) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4} key={product.id}>
+                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={product.id}>
                   <ProductCard product={product} />
                 </Grid>
               ))}
@@ -164,7 +164,7 @@ export const BrowseProductsPage = () => {
                 onChange={handlePageChange} 
                 color="primary" 
                 size="large"
-                sx={{ '& .MuiPaginationItem-root': { fontWeight: 700 } }}
+               sx={{ '& .MuiPaginationItem-root': { fontWeight: 900, borderRadius: 0, border: '1px solid transparent', '&.Mui-selected': { border: '2px solid black', bgcolor: 'transparent', color: 'black' } } }}
               />
             </Box>
           </Box>
@@ -174,9 +174,8 @@ export const BrowseProductsPage = () => {
           <Search sx={{ fontSize: 64, mb: 2, color: 'text.disabled', opacity: 0.3 }} />
           <Typography variant="h5" color="text.secondary" sx={{ fontWeight: 700 }}>No products found</Typography>
           <Typography color="text.secondary">Try adjusting your filters or search term.</Typography>
-          <Button 
-            variant="outlined" 
-            sx={{ mt: 3, borderRadius: 2 }}
+          <Button             variant="outlined" 
+             sx={{ mt: 3, borderRadius: 0, border: '2px solid black', fontWeight: 900 }}
             onClick={() => {
               setFilters(prev => ({ ...prev, search: '', category_id: null }));
               setSearchTerm('');

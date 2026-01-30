@@ -42,7 +42,7 @@ const SaleDetailDialog = ({ saleId, open, onClose }) => {
             onClose={onClose} 
             fullWidth 
             maxWidth="sm"
-            PaperProps={{ sx: { borderRadius: 3 } }}
+            PaperProps={{ sx: { borderRadius: 0, border: '4px solid black' } }}
         >
             {isLoading || !sale ? (
                 <DialogContent sx={{ display: 'flex', justifyContent: 'center', p: 6 }}>
@@ -57,7 +57,7 @@ const SaleDetailDialog = ({ saleId, open, onClose }) => {
                                 size="small" 
                                 label={sale.transaction_type.toUpperCase()} 
                                 color={sale.transaction_type === 'sell' ? 'success' : sale.transaction_type === 'repair' ? 'info' : 'warning'} 
-                                sx={{ fontWeight: 700, borderRadius: 1.5 }}
+                                sx={{ fontWeight: 800, borderRadius: 0, border: '1px solid black' }}
                             />
                         </Stack>
                     </DialogTitle>
@@ -101,7 +101,7 @@ const SaleDetailDialog = ({ saleId, open, onClose }) => {
                                 </List>
                             </Box>
                             
-                            <Box sx={{ p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
+                            <Box sx={{ p: 2, bgcolor: 'black', color: 'white', borderRadius: 0 }}>
                                 <Stack direction="row" justifyContent="space-between" alignItems="center">
                                     <Typography variant="h6" sx={{ fontWeight: 800 }}>Amount Due</Typography>
                                     <Typography variant="h6" color="primary" sx={{ fontWeight: 900 }}>{currency}{sale.total_amount}</Typography>
@@ -110,7 +110,7 @@ const SaleDetailDialog = ({ saleId, open, onClose }) => {
                         </Stack>
                     </DialogContent>
                     <DialogActions sx={{ p: 2.5 }}>
-                        <Button onClick={onClose} variant="outlined" sx={{ borderRadius: 2 }}>Close</Button>
+                        <Button onClick={onClose} variant="outlined" sx={{ borderRadius: 0, border: '2px solid black', fontWeight: 900 }}>CLOSE</Button>
                     </DialogActions>
                 </>
             )}
@@ -173,14 +173,14 @@ export const SalesHistoryPage = () => {
                         variant="outlined" 
                         startIcon={<DownloadIcon />} 
                         onClick={handleExport}
-                        sx={{ borderRadius: 2, fontWeight: 700 }}
+                        sx={{ borderRadius: 0, fontWeight: 900, border: '2px solid black' }}
                     >
-                        Export CSV
+                        EXPORT SYSTEM RECORDS
                     </Button>
                 }
             />
 
-            <Paper sx={{ borderRadius: 3, overflow: 'hidden' }}>
+            <Paper sx={{ borderRadius: 0, border: '2px solid black', overflow: 'hidden', boxShadow: 'none' }}>
                 <TableContainer>
                     <Table size="medium">
                         <TableHead sx={{ bgcolor: 'grey.50' }}>
@@ -217,7 +217,7 @@ export const SalesHistoryPage = () => {
                                                 label={sale.transaction_type.toUpperCase()} 
                                                 size="small" 
                                                 color={sale.transaction_type === 'sell' ? 'success' : sale.transaction_type === 'repair' ? 'info' : 'warning'}
-                                                sx={{ fontWeight: 700, borderRadius: 1, fontSize: '0.65rem' }}
+                                                sx={{ fontWeight: 800, borderRadius: 0, border: '1px solid black', fontSize: '0.65rem' }}
                                             />
                                         </TableCell>
                                         <TableCell>
@@ -240,7 +240,7 @@ export const SalesHistoryPage = () => {
                                                 <IconButton 
                                                     size="small" 
                                                     onClick={() => setSelectedSaleId(sale.id)}
-                                                    sx={{ color: 'primary.main', bgcolor: 'primary.50', '&:hover': { bgcolor: 'primary.100' } }}
+                                                    sx={{ color: 'black', border: '1px solid black', borderRadius: 0, '&:hover': { bgcolor: 'black', color: 'white' } }}
                                                 >
                                                     <ViewIcon fontSize="small" />
                                                 </IconButton>

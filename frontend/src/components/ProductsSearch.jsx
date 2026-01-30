@@ -70,10 +70,11 @@ export default function ProductsSearch({onSelect, onBuy}) {
               ),
               endAdornment: loading ? <CircularProgress size={20} /> : null,
               sx: { 
-                borderRadius: 3,
+                borderRadius: 0,
                 bgcolor: 'background.paper',
                 '&.Mui-focused': {
-                  boxShadow: '0 0 0 4px rgba(99, 102, 241, 0.1)'
+                  boxShadow: 'none',
+                  border: '2px solid black'
                 }
               }
             }}
@@ -84,15 +85,15 @@ export default function ProductsSearch({onSelect, onBuy}) {
               elevation={10} 
               sx={{ 
                 position: 'absolute', 
-                top: 'calc(100% + 8px)', 
+                top: 'calc(100% + 4px)', 
                 left: 0, 
                 right: 0, 
                 zIndex: 100,
                 maxHeight: 480,
                 overflowY: 'auto',
-                borderRadius: 3,
-                border: '1px solid',
-                borderColor: 'divider',
+                borderRadius: 0,
+                border: '2px solid black',
+                boxShadow: 'none',
                 overflow: 'hidden'
               }}
             >
@@ -114,7 +115,7 @@ export default function ProductsSearch({onSelect, onBuy}) {
                               setOpen(false);
                               setQuery('');
                             }}
-                            sx={{ borderRadius: 2 }}
+                            sx={{ borderRadius: 0, fontWeight: 800 }}
                           >
                             Buy
                           </Button>
@@ -132,10 +133,10 @@ export default function ProductsSearch({onSelect, onBuy}) {
                       >
                         <ListItemAvatar>
                           <Avatar 
-                            variant="rounded" 
+                            variant="square" 
                             src={product.image_path} 
                             alt={product.name}
-                            sx={{ width: 48, height: 48, borderRadius: 2 }}
+                            sx={{ width: 48, height: 48, borderRadius: 0, border: '1px solid black' }}
                           />
                         </ListItemAvatar>
                         <ListItemText 
