@@ -12,6 +12,6 @@ export const useProducts = (filters) => {
 export const useNavigation = () => {
     return useQuery({
         queryKey: ['navigation'],
-        queryFn: fetchNavigation,
+        queryFn: () => fetchNavigation(),
     });
 };

@@ -34,7 +34,9 @@ export default function ProductsSearch({onSelect, onBuy}) {
         setLoading(true);
         console.log("Searching for:", debouncedQuery);
         try {
-          const res = await fetch(`/api/products/search?q=${encodeURIComponent(debouncedQuery)}&variant=true`);
+          const res = await fetch(`/api/products/search?q=${encodeURIComponent(debouncedQuery)}&variant=true`, {
+            credentials: 'include'
+          });
           const data = await res.json();
           setResults(data);
           setOpen(true);

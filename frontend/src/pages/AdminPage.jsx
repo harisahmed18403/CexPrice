@@ -16,7 +16,8 @@ import {
     Stack,
     Card,
     CardContent,
-    Chip
+    Chip,
+    IconButton
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -26,7 +27,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useAdmin } from '../features/admin/hooks/useAdmin';
-import { fetchNavigation, toggleCategory } from '../features/products/api/products';
+import { fetchNavigation, toggleCategory, toggleSuperCategory } from '../features/products/api/products';
 import { PageHeader } from '../components/common/PageHeader';
 import { useNotification } from '../context/NotificationContext';
 
@@ -115,6 +116,19 @@ export const AdminPage = () => {
             showNotification(`Category visibility ${res.is_active ? 'enabled' : 'disabled'}.`, "info");
         } catch (err) {
             console.error("Failed to toggle category visibility", err);
+            showNotification("Failed to toggle visibility.", "error");
+        }
+    };
+
+    const handleSuperCategoryVisibilityToggle = async (superId) => {
+        try {
+            const res = await toggleSuperCategory(superId);
+            setTree(prev => prev.map(superCat => 
+                superCat.id === superId ? { ...superCat, is_active: res.is_active } : superCat
+            ));
+            showNotification(`Super Category visibility ${res.is_active ? 'enabled' : 'disabled'}.`, "info");
+        } catch (err) {
+            console.error("Failed to toggle super category visibility", err);
             showNotification("Failed to toggle visibility.", "error");
         }
     };
@@ -324,7 +338,22 @@ export const AdminPage = () => {
                                                         onChange={(e) => handleSuperCatToggle(superCat, e.target.checked)}
                                                         sx={{ mr: 1 }}
                                                     />
-                                                    <Typography sx={{ fontWeight: 700 }}>{superCat.name}</Typography>
+                                                     <Typography 
+                                                        sx={{ 
+                                                            fontWeight: 700, 
+                                                            flexGrow: 1,
+                                                            opacity: superCat.is_active ? 1 : 0.5,
+                                                            textDecoration: superCat.is_active ? 'none' : 'line-through'
+                                                        }}
+                                                    >
+                                                        {superCat.name}
+                                                    </Typography>
+                                                    <IconButton 
+                                                        size="small" 
+                                                        onClick={() => handleSuperCategoryVisibilityToggle(superCat.id)}
+                                                    >
+                                                        {superCat.is_active ? <VisibilityIcon size="small" /> : <VisibilityOffIcon size="small" />}
+                                                    </IconButton>
                                                 </Box>
                                                 
                                                 <Box sx={{ px: 3, py: 1 }}>

@@ -175,21 +175,27 @@ def get_products():
     order = request.args.get('order', 'asc', type=str)
     search_query = request.args.get('search', '', type=str)
 
-    # We want to return Products (Master), but grouped/sorted by Variant data
-    # Create a subquery for the minimum cash_price per product to show "Starting from"
-    from sqlalchemy import min
+    # Use Product.query (Flask-SQLAlchemy) which is better integrated with paginate()
     price_subquery = db.session.query(
         ProductVariant.product_id,
         func.min(ProductVariant.cash_price).label('min_price')
     ).group_by(ProductVariant.product_id).subquery()
 
-    query = db.session.query(Product).outerjoin(price_subquery, Product.id == price_subquery.c.product_id)
+    # Base query - Only show products from active categories and active super categories
+    query = Product.query.outerjoin(price_subquery, Product.id == price_subquery.c.product_id) \
+        .join(Category, Product.category_id == Category.id) \
+        .filter(Category.is_active == True) \
+        .join(Category.product_lines) \
+        .join(SuperCat) \
+        .filter(SuperCat.is_active == True) \
+        .distinct()
 
     # 1. Filters
     if cat_id:
         query = query.filter(Product.category_id == cat_id)
+    
     if line_id or super_id:
-        query = query.join(Category).join(Category.product_lines)
+        
         if line_id:
             query = query.filter(ProductLine.id == line_id)
         if super_id:
@@ -240,6 +246,22 @@ def toggle_category():
     db.session.commit()
     return jsonify({"success": True, "id": cat.id, "is_active": cat.is_active})
 
+@app.route('/api/super-categories/toggle', methods=['POST'])
+@login_required
+def toggle_super_category():
+    data = request.json
+    super_id = data.get('id')
+    if not super_id:
+        return jsonify({"error": "Missing super category id"}), 400
+        
+    super_cat = db.session.get(SuperCat, super_id)
+    if not super_cat:
+        return jsonify({"error": "Super category not found"}), 404
+        
+    super_cat.is_active = not super_cat.is_active
+    db.session.commit()
+    return jsonify({"success": True, "id": super_cat.id, "is_active": super_cat.is_active})
+
 @app.route('/api/navigation', methods=['GET'])
 @login_required
 def get_navigation():
@@ -248,6 +270,9 @@ def get_navigation():
     tree = []
     
     for s in supers:
+        if not include_inactive and not s.is_active:
+            continue
+            
         lines = []
         for line in s.product_lines:
             if include_inactive:
@@ -255,17 +280,18 @@ def get_navigation():
             else:
                 cats = [{'id': c.id, 'name': c.name} for c in line.categories if c.is_active]
             
-            if cats: # Only add lines that have active categories (or all if include_inactive)
+            if include_inactive or cats: # Only add lines that have active categories (or all if include_inactive)
                 lines.append({
                     'id': line.id,
                     'name': line.name,
                     'categories': cats
                 })
         
-        if lines:
+        if include_inactive or lines:
             tree.append({
                 'id': s.id,
                 'name': s.name,
+                'is_active': s.is_active,
                 'product_lines': lines
             })
         
@@ -284,9 +310,11 @@ def search_products():
     words = [word for word in query_text.split(' ') if word]
     
     if search_variants:
-        query = ProductVariant.query
+        query = ProductVariant.query.join(Product).join(Category).join(Category.product_lines).join(SuperCat) \
+            .filter(Category.is_active == True, SuperCat.is_active == True).distinct()
     else:
-        query = Product.query
+        query = Product.query.join(Category).join(Category.product_lines).join(SuperCat) \
+            .filter(Category.is_active == True, SuperCat.is_active == True).distinct()
 
     for word in words:
         if search_variants:

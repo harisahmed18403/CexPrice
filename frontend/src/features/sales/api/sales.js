@@ -7,6 +7,7 @@ export const createSale = async (saleData) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(saleData),
+        credentials: 'include'
     });
 
     if (!response.ok) {
@@ -18,7 +19,9 @@ export const createSale = async (saleData) => {
 
 export const fetchSales = async ({ limit = 50, offset = 0 } = {}) => {
     const params = new URLSearchParams({ limit, offset });
-    const response = await fetch(`${API_URL}/sales?${params.toString()}`);
+    const response = await fetch(`${API_URL}/sales?${params.toString()}`, {
+        credentials: 'include'
+    });
     
     if (!response.ok) {
         throw new Error('Failed to fetch sales');
@@ -27,7 +30,9 @@ export const fetchSales = async ({ limit = 50, offset = 0 } = {}) => {
 };
 
 export const fetchSaleDetail = async (saleId) => {
-    const response = await fetch(`${API_URL}/sales/${saleId}`);
+    const response = await fetch(`${API_URL}/sales/${saleId}`, {
+        credentials: 'include'
+    });
     
     if (!response.ok) {
         throw new Error('Failed to fetch sale detail');
@@ -36,7 +41,9 @@ export const fetchSaleDetail = async (saleId) => {
 };
 
 export const fetchSalesReport = async (granularity = 'daily') => {
-    const response = await fetch(`${API_URL}/reports/sales?granularity=${granularity}`);
+    const response = await fetch(`${API_URL}/reports/sales?granularity=${granularity}`, {
+        credentials: 'include'
+    });
     if (!response.ok) throw new Error('Failed to fetch sales report');
     return response.json();
 };

@@ -68,7 +68,7 @@ export const ReportsPage = () => {
             </Box>
 
             <Grid container spacing={3} sx={{ mb: 4 }}>
-                <Grid item xs={12} md={4}>
+                <Grid size={{ xs: 12, md: 4 }}>
                     <Card sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}>
                         <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                             <AccountBalanceWalletIcon fontSize="large" />
@@ -79,7 +79,7 @@ export const ReportsPage = () => {
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item xs={12} md={4}>
+                <Grid size={{ xs: 12, md: 4 }}>
                     <Card sx={{ bgcolor: 'secondary.main', color: 'secondary.contrastText' }}>
                         <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                             <ReceiptIcon fontSize="large" />
@@ -90,7 +90,7 @@ export const ReportsPage = () => {
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item xs={12} md={4}>
+                <Grid size={{ xs: 12, md: 4 }}>
                     <Card sx={{ bgcolor: 'success.main', color: 'success.contrastText' }}>
                         <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                             <TrendingUpIcon fontSize="large" />

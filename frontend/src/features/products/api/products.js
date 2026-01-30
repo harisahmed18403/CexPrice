@@ -21,13 +21,17 @@ export const fetchProducts = async ({
     params.append('order', order);
     if (search) params.append('search', search);
 
-    const response = await fetch(`${API_URL}/products?${params.toString()}`);
+    const response = await fetch(`${API_URL}/products?${params.toString()}`, {
+        credentials: 'include'
+    });
     if (!response.ok) throw new Error('Network response was not ok');
     return response.json();
 };
 
 export const fetchNavigation = async (includeInactive = false) => {
-    const response = await fetch(`${API_URL}/navigation?include_inactive=${includeInactive}`);
+    const response = await fetch(`${API_URL}/navigation?include_inactive=${includeInactive}`, {
+        credentials: 'include'
+    });
     if (!response.ok) throw new Error('Failed to fetch navigation');
     return response.json();
 };
@@ -36,8 +40,20 @@ export const toggleCategory = async (id) => {
     const response = await fetch(`${API_URL}/categories/toggle`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id })
+        body: JSON.stringify({ id }),
+        credentials: 'include'
     });
     if (!response.ok) throw new Error('Failed to toggle category');
+    return response.json();
+};
+
+export const toggleSuperCategory = async (id) => {
+    const response = await fetch(`${API_URL}/super-categories/toggle`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+        credentials: 'include'
+    });
+    if (!response.ok) throw new Error('Failed to toggle super category');
     return response.json();
 };

@@ -1,88 +1,98 @@
-2025-12-26 17:55:32,236 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:44]
-2025-12-26 17:55:53,315 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:44]
-2025-12-26 17:55:56,300 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:44]
-2025-12-26 17:57:33,530 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:44]
-2025-12-26 17:57:59,215 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:44]
-2025-12-26 17:58:03,316 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:44]
-2025-12-26 17:59:02,796 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:44]
-2025-12-26 17:59:06,749 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:44]
-2025-12-26 18:02:35,423 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:44]
-2025-12-28 13:58:33,293 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 13:58:33,306 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 13:58:33,306 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:00:03,744 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:00:03,750 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:00:03,750 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:02:32,547 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:02:53,687 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:03:01,519 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:03:04,429 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:03:59,750 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:04:19,201 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:05:02,449 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:05:07,471 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:05:42,464 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:05:59,101 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:06:17,716 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:06:23,719 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:06:37,379 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:06:47,523 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:06:50,739 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:07:04,291 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:11:28,853 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:12:26,748 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:13:50,164 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:16:39,277 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:17:10,500 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:17:33,322 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:18:45,131 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 14:19:38,121 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 18:32:25,762 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 18:33:19,785 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 18:46:47,365 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 18:51:41,812 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 18:53:05,278 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-28 18:53:37,184 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-29 18:53:37,571 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-29 18:55:30,594 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-29 18:57:27,272 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-29 18:58:37,099 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 22:18:11,645 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 22:20:21,749 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 22:49:15,869 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 22:49:22,999 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 22:49:26,404 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 22:49:49,179 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 22:49:52,998 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 23:01:06,472 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 23:02:49,625 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 23:04:33,368 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 23:05:59,954 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 23:13:18,138 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 23:14:38,764 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 23:17:21,600 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 23:18:16,566 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 23:18:34,662 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2025-12-31 23:20:04,320 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 12:41:53,655 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 12:44:02,217 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 12:44:18,602 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 12:46:41,264 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 12:49:55,411 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 12:50:04,024 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 13:00:41,090 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 13:00:44,405 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 13:01:52,098 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 13:01:53,797 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 13:03:57,067 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 13:05:25,993 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 13:05:35,573 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 13:06:31,555 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 13:06:43,341 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-01 13:06:48,962 INFO: CexPrice startup [in /var/www/html/CexPrice/app/__init__.py:29]
-2026-01-04 22:45:02,028 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
-2026-01-04 22:45:08,854 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
-2026-01-07 20:05:13,117 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
-2026-01-07 20:16:47,414 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
-2026-01-07 20:18:30,370 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
-2026-01-07 20:19:01,886 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:29:44,356 ERROR: Exception on /api/cex-refresh/stop [POST] [in /var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/app.py", line 891, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/app.py", line 500, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/app.py", line 802, in handle_user_exception
+    return self.handle_http_exception(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/app.py", line 777, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/app/errors.py", line 6, in not_found_error
+    return render_template('404.html'), 404
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/var/www/html/CexPrice/backend/app/templates/404.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/var/www/html/CexPrice/backend/app/templates/base.html", line 15, in top-level template code
+    <a href="{{ url_for('index') }}">Home</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/CexPrice/backend/venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'index'. Did you mean 'login' instead?
+2026-01-28 20:30:37,892 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:32:40,001 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:37:28,616 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:37:36,574 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:38:16,742 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:38:25,419 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:38:28,794 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:38:50,540 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:39:11,780 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:39:22,432 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:39:52,232 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:43:58,721 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:44:02,135 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:44:16,419 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:44:41,318 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:45:25,971 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:45:52,663 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:46:07,964 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:46:38,539 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:47:00,288 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:47:46,456 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:48:07,182 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:48:33,663 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:50:19,052 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:50:23,574 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:50:44,324 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:51:04,795 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:51:38,740 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-28 20:51:42,672 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-30 19:24:02,134 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-30 19:34:44,658 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-30 19:35:41,799 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-30 19:51:57,586 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-30 20:43:32,375 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-30 21:28:08,680 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
+2026-01-30 21:28:21,870 INFO: CexPrice startup [in /var/www/html/CexPrice/backend/app/__init__.py:29]
