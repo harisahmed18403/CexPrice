@@ -3,6 +3,8 @@ from .super_cat import SuperCat
 from .product_line import ProductLine
 from .category import Category
 from .product import Product
+from .product_variant import ProductVariant
+from .sale import Sale, SaleItem
 
 from .cex_product import CexProduct
 

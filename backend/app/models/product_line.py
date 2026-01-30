@@ -1,6 +1,7 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 from app.models import BaseTable
+from app.models.associations import category_product_line
 
 class ProductLine(BaseTable):
     __tablename__ = "product_lines"
@@ -17,8 +18,8 @@ class ProductLine(BaseTable):
     )
 
     categories: so.Mapped[list["Category"]] = so.relationship(
-        back_populates="product_line",
-        cascade="all, delete-orphan"
+        secondary=category_product_line,
+        back_populates="product_lines"
     )
 
     def __repr__(self):

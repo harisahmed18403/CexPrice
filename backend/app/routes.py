@@ -1,11 +1,13 @@
 from flask import Flask, request, jsonify, Blueprint
 from app import app, db
-from app.models import User, SuperCat, ProductLine, Category, Product
+from app.models import User, SuperCat, ProductLine, Category, Product, ProductVariant
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from sqlalchemy import func
 from datetime import datetime, timezone
 from app.services import RefreshCex
+from app.status_store import refresh_status # Import status global
+import threading
 
 from flask_cors import CORS
 CORS(app, supports_credentials=True)
@@ -115,12 +117,44 @@ def edit_profile():
 @app.route("/api/cex-refresh", methods=["POST"])
 @login_required
 def cex_refresh():
-    refreshCex = RefreshCex()
-    # refreshCex.refreshSuperCats()
-    # refreshCex.refreshProductLines()
-    # refreshCex.refreshCategories()
-    refreshCex.refreshProducts()
-    return jsonify({"success": True, "message": "CEX products refreshed"})
+    if refresh_status["is_running"]:
+        return jsonify({"success": False, "message": "Refresh already in progress"})
+
+    data = request.get_json(silent=True) or {}
+    category_ids = data.get('category_ids', [])
+    product_line_ids = data.get('product_line_ids', [])
+    
+    # Define worker function
+    def run_worker(app_obj, cat_ids, pl_ids):
+        # We must push the app context manually in the thread
+        with app_obj.app_context():
+            refresher = RefreshCex()
+            refresher.refreshProducts(category_ids=cat_ids, product_line_ids=pl_ids)
+
+    # Start thread
+    # app is the real Flask application object, ensuring the thread has access to config, db, etc.
+    thread = threading.Thread(target=run_worker, args=(app, category_ids, product_line_ids))
+    thread.start()
+    
+    return jsonify({"success": True, "message": "CEX products refresh started in background"})
+
+@app.route("/api/cex-refresh/stop", methods=["POST"])
+@login_required
+def stop_refresh():
+    try:
+        if refresh_status["is_running"]:
+            refresh_status["is_running"] = False
+            refresh_status["logs"].append("Stop requested by user...")
+            return jsonify({"success": True, "message": "Stopping refresh..."})
+        else:
+            return jsonify({"success": True, "message": "No refresh running"})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route("/api/cex-refresh/status", methods=["GET"])
+@login_required
+def cex_refresh_status():
+    return jsonify(refresh_status)
 
 @app.route("/api/admin", methods=["GET"])
 @login_required
@@ -133,54 +167,107 @@ def get_products():
     super_id = request.args.get('super_category_id', type=int)
     line_id = request.args.get('product_line_id', type=int)
     cat_id = request.args.get('category_id', type=int)
+    
+    page = request.args.get('page', 1, type=int)
+    limit = request.args.get('limit', 24, type=int)
+    
+    sort_by = request.args.get('sort_by', 'name', type=str)
+    order = request.args.get('order', 'asc', type=str)
+    search_query = request.args.get('search', '', type=str)
 
-    query = Product.query
+    # We want to return Products (Master), but grouped/sorted by Variant data
+    # Create a subquery for the minimum cash_price per product to show "Starting from"
+    from sqlalchemy import min
+    price_subquery = db.session.query(
+        ProductVariant.product_id,
+        func.min(ProductVariant.cash_price).label('min_price')
+    ).group_by(ProductVariant.product_id).subquery()
 
-    # 1. Filter by Category (Direct Relationship)
+    query = db.session.query(Product).outerjoin(price_subquery, Product.id == price_subquery.c.product_id)
+
+    # 1. Filters
     if cat_id:
         query = query.filter(Product.category_id == cat_id)
-
-    # 2. Filter by Product Line (Requires Join to Category)
-    if line_id:
-        # We check if Category is already joined; if not, join it
-        query = query.join(Category).filter(Category.product_line_id == line_id)
-
-    # 3. Filter by Super Category (Requires Join to Category AND ProductLine)
-    if super_id:
-        # If we didn't join Category in the previous step, we must join it now
-        if not line_id:
-            query = query.join(Category)
+    if line_id or super_id:
+        query = query.join(Category).join(Category.product_lines)
+        if line_id:
+            query = query.filter(ProductLine.id == line_id)
+        if super_id:
+            query = query.filter(ProductLine.super_cat_id == super_id)
         
-        query = query.join(ProductLine).filter(ProductLine.super_cat_id == super_id)
+    # 2. Search
+    if search_query:
+        words = [word for word in search_query.split(' ') if word]
+        for word in words:
+            query = query.filter(Product.name.ilike(f'%{word}%'))
 
-    products = query.all()
+    # 3. Sorting
+    if sort_by == 'price':
+        sort_col = price_subquery.c.min_price
+    else:
+        sort_col = Product.name
+        
+    if order == 'desc':
+        query = query.order_by(sort_col.desc())
+    else:
+        query = query.order_by(sort_col.asc())
+
+    # 4. Pagination
+    pagination = query.paginate(page=page, per_page=limit, error_out=False)
     
-    # Debugging
-    print(f"Filters -> Super: {super_id}, Line: {line_id}, Cat: {cat_id}")
-    print(f"SQL Generated: {str(query)}")
-    
-    return jsonify([p.to_dict() for p in products])
+    return jsonify({
+        'items': [p.to_dict() for p in pagination.items],
+        'total': pagination.total,
+        'pages': pagination.pages,
+        'page': page,
+        'has_next': pagination.has_next,
+        'has_prev': pagination.has_prev
+    })
+
+@app.route('/api/categories/toggle', methods=['POST'])
+@login_required
+def toggle_category():
+    data = request.json
+    cat_id = data.get('id')
+    if not cat_id:
+        return jsonify({"error": "Missing category id"}), 400
+        
+    cat = db.session.get(Category, cat_id)
+    if not cat:
+        return jsonify({"error": "Category not found"}), 404
+        
+    cat.is_active = not cat.is_active
+    db.session.commit()
+    return jsonify({"success": True, "id": cat.id, "is_active": cat.is_active})
 
 @app.route('/api/navigation', methods=['GET'])
 @login_required
 def get_navigation():
+    include_inactive = request.args.get('include_inactive', 'false') == 'true'
     supers = SuperCat.query.all()
     tree = []
     
     for s in supers:
         lines = []
         for line in s.product_lines:
-            cats = [{'id': c.id, 'name': c.name} for c in line.categories]
-            lines.append({
-                'id': line.id,
-                'name': line.name,
-                'categories': cats
+            if include_inactive:
+                cats = [{'id': c.id, 'name': c.name, 'is_active': c.is_active} for c in line.categories]
+            else:
+                cats = [{'id': c.id, 'name': c.name} for c in line.categories if c.is_active]
+            
+            if cats: # Only add lines that have active categories (or all if include_inactive)
+                lines.append({
+                    'id': line.id,
+                    'name': line.name,
+                    'categories': cats
+                })
+        
+        if lines:
+            tree.append({
+                'id': s.id,
+                'name': s.name,
+                'product_lines': lines
             })
-        tree.append({
-            'id': s.id,
-            'name': s.name,
-            'product_lines': lines
-        })
         
     return jsonify(tree)
 
@@ -188,19 +275,28 @@ def get_navigation():
 @login_required
 def search_products():
     query_text = request.args.get('q', '', type=str)
+    # If variant=true, search in variants instead of master products (useful for Sales)
+    search_variants = request.args.get('variant', 'false') == 'true'
     
     if not query_text:
         return jsonify([])
 
     words = [word for word in query_text.split(' ') if word]
-    query = Product.query
+    
+    if search_variants:
+        query = ProductVariant.query
+    else:
+        query = Product.query
 
     for word in words:
-        query = query.filter(Product.name.ilike(f'%{word}%'))
+        if search_variants:
+            query = query.filter(ProductVariant.name.ilike(f'%{word}%'))
+        else:
+            query = query.filter(Product.name.ilike(f'%{word}%'))
 
-    # SORTING LOGIC:
-    # We order by the length of the name. 
-    # If I search "Apple", "Apple" (length 5) comes before "Apple iPhone 15 Case" (length 21).
-    search_results = query.order_by(func.length(Product.name).asc()).limit(20).all()
+    if search_variants:
+        search_results = query.order_by(func.length(ProductVariant.name).asc()).limit(20).all()
+    else:
+        search_results = query.order_by(func.length(Product.name).asc()).limit(20).all()
 
     return jsonify([p.to_dict() for p in search_results])
