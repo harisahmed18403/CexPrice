@@ -4,16 +4,25 @@ import Navbar from '../components/Navbar';
 
 export const MainLayout = () => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      {/* This stays on every page */}
+    <Box sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      minHeight: '100vh',
+      bgcolor: 'background.default'
+    }}>
       <Navbar /> 
 
-      <Container component="main" sx={{ flexGrow: 1, py: 3 }}>
-        {/* This is where the specific Page (Dashboard, Profile, etc.) renders */}
+      <Container 
+        component="main" 
+        maxWidth="lg" 
+        sx={{ 
+          flexGrow: 1, 
+          py: { xs: 4, md: 6 }, 
+          px: { xs: 2, md: 4 } 
+        }}
+      >
         <Outlet />
       </Container>
-
-      {/* You could add a Footer here too */}
     </Box>
   );
 };

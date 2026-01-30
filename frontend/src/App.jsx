@@ -1,12 +1,11 @@
 import { AppRouter } from "./routes";
-import { CssBaseline } from "@mui/material";
+import { AppProviders } from "./providers/AppProviders";
 
 function App() {
   return (
-    <>
-      <CssBaseline /> {/* Standardizes MUI styles */}
+    <AppProviders>
       <AppRouter />
-    </>
+    </AppProviders>
   );
 }
 

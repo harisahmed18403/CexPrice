@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDebounce } from '../hooks/useDebounce';
 import { 
   TextField, 
   Paper, 
@@ -10,22 +11,30 @@ import {
   CircularProgress, 
   ClickAwayListener,
   Box,
-  Typography
+  Typography,
+  ListItemButton,
+  Button,
+  InputAdornment,
+  Fade
 } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
-export default function ProductsSearch({onSelect}) {
+export default function ProductsSearch({onSelect, onBuy}) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  
+  const debouncedQuery = useDebounce(query, 500);
 
   // Search Logic encapsulated inside the component
   useEffect(() => {
-    const delayDebounceFn = setTimeout(async () => {
-      if (query.trim().length > 2) {
+    const searchProducts = async () => {
+      if (debouncedQuery.trim().length > 2) {
         setLoading(true);
+        console.log("Searching for:", debouncedQuery);
         try {
-          const res = await fetch(`/api/products/search?q=${encodeURIComponent(query)}`);
+          const res = await fetch(`/api/products/search?q=${encodeURIComponent(debouncedQuery)}&variant=true`);
           const data = await res.json();
           setResults(data);
           setOpen(true);
@@ -38,10 +47,10 @@ export default function ProductsSearch({onSelect}) {
         setResults([]);
         setOpen(false);
       }
-    }, 300); // 300ms Debounce to prevent API spam
+    };
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [query]);
+    searchProducts();
+  }, [debouncedQuery]);
 
   return (
     <Box sx={{ position: 'relative', width: '100%' }}>
@@ -49,57 +58,100 @@ export default function ProductsSearch({onSelect}) {
         <div>
           <TextField
             fullWidth
-            size="small"
-            placeholder="Search products..."
+            placeholder="Search products by name or SKU..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => query.length > 2 && setOpen(true)}
             InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon color="action" />
+                </InputAdornment>
+              ),
               endAdornment: loading ? <CircularProgress size={20} /> : null,
+              sx: { 
+                borderRadius: 3,
+                bgcolor: 'background.paper',
+                '&.Mui-focused': {
+                  boxShadow: '0 0 0 4px rgba(99, 102, 241, 0.1)'
+                }
+              }
             }}
           />
 
-          {/* Results Dropdown */}
-          {open && (
+          <Fade in={open}>
             <Paper 
-              elevation={8} 
+              elevation={10} 
               sx={{ 
                 position: 'absolute', 
-                top: '110%', 
+                top: 'calc(100% + 8px)', 
                 left: 0, 
                 right: 0, 
-                zIndex: 10,
-                maxHeight: 400,
-                overflowY: 'auto'
+                zIndex: 100,
+                maxHeight: 480,
+                overflowY: 'auto',
+                borderRadius: 3,
+                border: '1px solid',
+                borderColor: 'divider',
+                overflow: 'hidden'
               }}
             >
-              <List>
+              <List sx={{ p: 0 }}>
                 {results.length > 0 ? (
                   results.map((product) => (
                     <ListItem 
-                      button 
                       key={product.id} 
-                      onClick={() => {
-                          console.log("Selected:", product.id, product.name);
-                          onSelect(product)
-                        setOpen(false);
-                      }}
+                      disablePadding
+                      divider
+                      secondaryAction={
+                        onBuy && (
+                          <Button 
+                            variant="contained" 
+                            size="small"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onBuy(product);
+                              setOpen(false);
+                              setQuery('');
+                            }}
+                            sx={{ borderRadius: 2 }}
+                          >
+                            Buy
+                          </Button>
+                        )
+                      }
                     >
-                      <ListItemAvatar>
-                        <Avatar 
-                          variant="rounded" 
-                          src={product.image_path} 
-                          alt={product.name} 
+                      <ListItemButton
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            if(onSelect) onSelect(product);
+                            setOpen(false);
+                            setQuery('');
+                        }}
+                        sx={{ py: 1.5 }}
+                      >
+                        <ListItemAvatar>
+                          <Avatar 
+                            variant="rounded" 
+                            src={product.image_path} 
+                            alt={product.name}
+                            sx={{ width: 48, height: 48, borderRadius: 2 }}
+                          />
+                        </ListItemAvatar>
+                        <ListItemText 
+                          primary={<Typography variant="subtitle2" sx={{ fontWeight: 600 }}>{product.name}</Typography>} 
+                          secondary={
+                            <Typography component="span" variant="caption" color="text.secondary">
+                              Cash: <strong>{import.meta.env.VITE_CURRENCY}{product.cash_price}</strong> • 
+                              Sale: <strong>{import.meta.env.VITE_CURRENCY}{product.sale_price || 'N/A'}</strong>
+                            </Typography>
+                          } 
                         />
-                      </ListItemAvatar>
-                      <ListItemText 
-                        primary={product.name} 
-                        secondary={`${import.meta.env.VITE_CURRENCY}${product.cash_price}`} 
-                      />
+                      </ListItemButton>
                     </ListItem>
                   ))
                 ) : (
-                  <ListItem>
+                  <ListItem sx={{ py: 4, justifyContent: 'center' }}>
                     <Typography variant="body2" color="text.secondary">
                       No products found.
                     </Typography>
@@ -107,7 +159,7 @@ export default function ProductsSearch({onSelect}) {
                 )}
               </List>
             </Paper>
-          )}
+          </Fade>
         </div>
       </ClickAwayListener>
     </Box>
