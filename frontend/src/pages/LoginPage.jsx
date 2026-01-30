@@ -37,7 +37,7 @@ export const LoginPage = () => {
               </Paper>
               <Box textAlign="center">
                 <Typography variant="h4" sx={{ fontWeight: 900, letterSpacing: -1, mb: 0.5 }}>
-                  MobiStore
+                  {import.meta.env.VITE_APP_NAME || 'Phoneworks'}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                   Advanced Inventory Management
@@ -63,7 +63,7 @@ export const LoginPage = () => {
             </Paper>
             
             <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 4, textAlign: 'center', fontWeight: 500 }}>
-              &copy; {new Date().getFullYear()} MobiStore Inventory System. All rights reserved.
+              &copy; {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME || 'Phoneworks'} Inventory System. All rights reserved.
             </Typography>
           </Box>
         </Fade>

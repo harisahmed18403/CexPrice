@@ -29,7 +29,7 @@ export default function Navbar() {
           <Stack direction="row" spacing={1} alignItems="center" component={RouterLink} to="/" sx={{ textDecoration: 'none', color: 'primary.main' }}>
             <SmartphoneIcon />
             <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: -0.5 }}>
-              MobiStore
+              {import.meta.env.VITE_APP_NAME || 'Phoneworks'}
             </Typography>
           </Stack>
 
