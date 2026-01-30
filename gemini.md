@@ -6,17 +6,18 @@ This document provides context for the CexPrice project to help the Gemini CLI u
 
 CexPrice is a full-stack web application designed to track product prices from the retailer CeX (Complete Entertainment Exchange). It features a Python/Flask backend that serves a REST API and a React single-page application (SPA) frontend.
 
-- **Backend**: Provides API endpoints for user authentication, product browsing/searching, and administrative tasks like refreshing product data from CeX.
-- **Frontend**: A modern UI for users to log in, browse products by category, search for specific items, and view their profiles.
+- **Backend**: Provides API endpoints for user authentication, product browsing/searching, sales management, and administrative tasks like refreshing product data from CeX.
+- **Frontend**: A modern UI for users to log in, browse products by category, search for specific items, manage sales, and view their profiles.
 
 ## 2. Tech Stack
 
 ### Backend
 - **Language**: Python
 - **Framework**: Flask
-- **Database**: Flask-SQLAlchemy (likely with SQLite, PostgreSQL, or MySQL)
-- **Migrations**: Alembic
+- **Database**: Flask-SQLAlchemy with SQLite (Context impl `SQLiteImpl`)
+- **Migrations**: Alembic (`flask db ...`)
 - **Authentication**: Flask-Login
+- **External Integration**: `requests` to fetch data from CeX Web/WebSocket APIs.
 
 ### Frontend
 - **Framework**: React
@@ -26,58 +27,69 @@ CexPrice is a full-stack web application designed to track product prices from t
 - **Data Fetching**: TanStack Query (`@tanstack/react-query`)
 - **Package Manager**: npm
 
-## 3. Project Structure
+## 3. Data Models (`backend/app/models/`)
 
-```
-/
-├── backend/
-│   ├── app/                # Main Flask application package
-│   │   ├── routes.py       # API endpoint definitions
-│   │   ├── models/         # SQLAlchemy DB models
-│   │   └── services/cex/   # Business logic for CeX data
-│   ├── migrations/         # Alembic database migrations
-│   └── cexprice.py         # Flask application entry point
-│
-└── frontend/
-    ├── src/                # React source code
-    │   ├── pages/          # Top-level page components
-    │   ├── components/     # Reusable UI components
-    │   ├── features/       # Feature-sliced logic (auth, products)
-    │   └── routes/         # React Router configuration
-    ├── vite.config.js      # Vite configuration (incl. proxy)
-    └── package.json        # Frontend dependencies and scripts
-```
+The database schema is managed via SQLAlchemy. Key models include:
 
-## 4. Getting Started
+-   **Product**: The core item catalog.
+    -   `id`, `name`, `category_id`
+    -   `image_path`: Stores filename or URL. `get_url()` handles resolution to local or remote.
+    -   **Pricing Fields**:
+        -   `cash_price`: The cash value CeX offers to buy the item for.
+        -   `voucher_price`: The voucher value CeX offers to buy the item for.
+        -   `sale_price`: The price CeX sells the item for.
+-   **CexProduct**: Link table mapping a local `Product` to a CeX `cex_id` (objectID).
+-   **Category / ProductLine / SuperCat**: Hierarchical organization (Super Category -> Product Line -> Category -> Product).
+-   **Sale / SaleItem**: Records transaction history (Buy/Sell) and line items.
+-   **User**: Application users (Auth).
 
-### Backend Setup
-1.  Navigate to the `backend` directory: `cd backend`
-2.  Activate the Python virtual environment (path may vary): `source venv/bin/activate`
-3.  Set the Flask app environment variable: `export FLASK_APP=cexprice.py`
-4.  Run the development server (defaults to port 5000): `flask run`
+## 4. CeX Data Integration (`backend/app/services/cex/refresh_cex.py`)
 
-### Frontend Setup
-1.  Navigate to the `frontend` directory: `cd frontend`
-2.  Install dependencies: `npm install`
-3.  Run the development server (defaults to port 3000): `npm run dev`
+The application periodically syncs data from CeX's public APIs using the `RefreshCex` service.
+
+-   **Sources**:
+    -   Category/Hierarchy data: `https://wss2.cex.{country}.webuy.io/v3`
+    -   Product data: `https://search.webuy.io/1/indexes/*/queries` (Algolia API)
+-   **Data Mapping**:
+    -   CeX `cashPrice` -> Product `cash_price`
+    -   CeX `exchangePrice` -> Product `voucher_price`
+    -   CeX `sellPrice` -> Product `sale_price`
+    -   CeX `boxName` -> Product `name`
+    -   CeX `imageUrls` -> Product `image_path`
 
 ## 5. API Endpoints
 
 The frontend communicates with the backend via a REST API. The Vite development server proxies requests from `/api` to the Flask backend running on `http://127.0.0.1:5000`.
 
 ### Key Routes (`/api/...`)
-- **Authentication**:
-  - `POST /login`
-  - `POST /register`
-  - `POST /logout`
-  - `GET /me` (Get current user)
-- **Products**:
-  - `GET /products` (Filter by category, etc.)
-  - `GET /products/search?q={query}`
-  - `GET /navigation` (Get category tree)
-- **Admin**:
-  - `POST /cex-refresh` (Triggers a data refresh from CeX)
-  - `GET /admin`
-- **User**:
-  - `GET /user/{username}`
-  - `PUT /profile`
+-   **Authentication**:
+    -   `POST /login`, `POST /register`, `POST /logout`
+    -   `GET /me` (Current user session)
+-   **Products**:
+    -   `GET /products` (List with filters)
+    -   `GET /products/search?q={query}`
+    -   `GET /navigation` (Full category tree)
+-   **Sales**:
+    -   `POST /sales` (Create a new sale transaction)
+    -   `GET /sales` (List sales history)
+    -   `GET /sales/<id>` (Get sale details)
+-   **Admin**:
+    -   `POST /cex-refresh` (Trigger background refresh)
+    -   `GET /admin` (Dashboard stats)
+
+## 6. Development Workflow
+
+### Backend
+1.  **Navigate**: `cd backend`
+2.  **Environment**: `source venv/bin/activate` (or appropriate shell command)
+3.  **Run Server**: `flask run` (Defaults to port 5000)
+4.  **Database Migrations**:
+    -   Make changes to `models/*.py`
+    -   `export FLASK_APP=cexprice.py`
+    -   Generate migration: `flask db migrate -m "Description of change"`
+    -   Apply migration: `flask db upgrade`
+
+### Frontend
+1.  **Navigate**: `cd frontend`
+2.  **Install**: `npm install`
+3.  **Run Server**: `npm run dev` (Defaults to port 3000, proxies to backend)
